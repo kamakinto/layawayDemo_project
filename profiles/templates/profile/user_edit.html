@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+        <div class="row">
+        <div class="col">
+            <div class="col-sm-6 col-12 mx-auto">
+                <form method="POST">
+                {% csrf_token %}
+                <h2> Profile </h2>
+                  <hr />
+                {{ profile_form }}
+
+               <h2> Shipping Address</h2>
+                  <hr />
+                {{ shipping_form }}
+
+                <h2> Billing Address </h2>
+                  <hr />
+                {{ billing_form }}
+                <br />
+                {% comment %} <button type="submit" class="btn btn-info">Save and Continue Editing</button> {% endcomment %}
+                <button type="submit" class="btn btn-success">Save</button>
+                <a class="btn btn-danger" href="{% url 'profiles:view' %}">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

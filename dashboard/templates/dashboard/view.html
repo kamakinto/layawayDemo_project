@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<title>Dashboard</title>
+  </head>
+  <body>
+
+{% if is_admin %}
+        <h1 class="text-center">Your Admin Dashboard</h1>
+{% else %}
+        <h1 class="text-center">Your Dashboard</h1>
+{% endif %}
+
+
+{% if is_admin %}
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">Pending</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="under-review-tab" data-toggle="tab" href="#under-review" role="tab" aria-controls="under-review" aria-selected="false">Under Review</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="approved-tab" data-toggle="tab" href="#approved" role="tab" aria-controls="approved" aria-selected="false">Approved</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" id="rejected-tab" data-toggle="tab" href="#rejected" role="tab" aria-controls="rejected" aria-selected="false">Rejected</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+                        {% for pending_obj in pending_requests %}
+                                {{ pending_obj.title }}
+                        {% endfor %}
+                </div>
+                <div class="tab-pane fade" id="under-review" role="tabpanel" aria-labelledby="under-review-tab">
+                        {% for under_review_obj in under_review_requests %}
+                                {{ under_review_obj.title }}
+                        {% endfor %}
+                        </div>
+                <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="approved-tab">
+                        {% for approved_obj in approved_requests %}
+                                {{ approved_obj.title }}
+                        {% endfor %}
+                </div>
+                <div class="tab-pane fade" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
+                        {% for rejected_obj in rejected_requests %}
+                                {{ rejected_obj.title }}
+                        {% endfor %}
+                </div>
+
+              </div>
+{% else %}
+                {% if request_obj %}
+                <h3 class="text-center">Layaway Request</h3>
+                        <div class="card text-center">
+                                <div class="card-header">
+                                {{ request_obj.reference_ID }}: {{ request_obj.status}}
+                                </div>
+                                <div class="card-body">
+                                <h5 class="card-title">{{ request_obj.url }}</h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <ul class="list-group list-group-flush mx-4">
+                                        <li class="list-group-item"><b>Price:</b> {{ request_obj.price }}</li>
+                                        <li class="list-group-item"><b>Amount Owed:</b> {{ request_obj.remaining_amount }}</li>
+                                        <li class="list-group-item"></li>
+                                </ul>
+                                <a href="{{ request_obj.get_absolute_url }}" class="btn btn-primary">View Details</a>
+                                <a href="#" class="btn btn-success">Make A Payment</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                        last updated 2 days ago
+                                </div>
+                        </div>
+                {% else %}
+                <div class="row text-center">
+                        <div class="col">
+                                <a href="{% url 'request:create' %}" class="btn btn-success btn-lg"> Request an Item</a>
+                        </div>
+                </div>
+                {% endif %}
+{% endif %}
+
+
+
+
+
+
+
+
+
+      <h3 class="text-center">Purchases</h3>
+
+      {% if purchases %}
+              Yes! we have bought things!
+      {% else %}
+      <div class="row text-center">
+                <div class="col">
+                               <button type="button" class="btn btn-success btn-lg">Add to Cart</button>
+                </div>
+        </div>
+
+      {% endif %}
+
+
+    <div class= "container">
+
+
+
+{% if request.user.is_authenticated %}
+  <div class="row">
+        <div class="col"></div>
+     </div>
+{% endif %}
+
+
+    </div>
+
+
+{% endblock content %}
+

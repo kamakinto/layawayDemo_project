@@ -1,0 +1,72 @@
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+        <div class="row">
+        <div class="col">
+            <div class="col-sm-6 col-12 mx-auto">
+        <div class="card" style="width: 25rem;">
+  <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">
+                {% if profile.first_name %}
+                        <h2>  Welcome {{profile.first_name}} ! </h2>
+                {% else %}
+                                        Welcome
+                {% endif %}
+    </h5>
+    <p class="card-text">{{ profile.bio}}</p>
+    <a href="#" class="card-link "><i class="far fa-edit"></i></a>
+  </div>
+  <div class="card-header"><b> Basic info </b></div>
+  <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <i class="far fa-user"></i>
+            {% if profile.first_name or profile.last_name %}
+                        {{ profile.first_name}}  {{ profile.last_name }}
+            {% else %}
+                -
+            {% endif %}
+    </li>
+    <li class="list-group-item">
+            <i class="far fa-envelope"></i>
+            {% if   profile.email  %}
+                {{ profile.email }}
+            {% else %}
+                 -
+            {% endif %}
+    </li>
+    <li class="list-group-item">
+            <i class="fas fa-phone"></i>
+                {% if profile.cell_number %}
+                        {{ profile.cell_number}}
+                {% else %}
+                        -
+                {% endif %}
+    </li>
+     <div class="card-header"> <b> Shipping Address </b></div>
+                <ul class="list-group list-group-flush">
+                        <li class="list-group-item"> Address: {{ profile.shipping_address.address_line_1 }}</li>
+                        <li class="list-group-item"> Address Line (optional): {{ profile.shipping_address.address_line_2 }}</li>
+                        <li class="list-group-item">City: {{ profile.shipping_address.city }}</li>
+                        <li class="list-group-item">State: {{ profile.shipping_address.state  }}</li>
+                        <li class="list-group-item"> Postal Code:  {{  profile.shipping_address.postal_code }}</li>
+
+     <div class="card-header"> <b> Billing Address </b></div>
+                        <li class="list-group-item"> Address Line {{ profile.billing_address.address_line_1 }}</li>
+                        <li class="list-group-item"> Address Line (optional)  {{ profile.billing_address.address_line_2 }}</li>
+                        <li class="list-group-item">City {{ profile.billing_address.city }}</li>
+                        <li class="list-group-item">State {{ profile.billing_address.state }}</li>
+                        <li class="list-group-item"> Postal Code {{ profile.billing_address.postal_code }} </li>
+</ul>
+<div class="card-body">
+        <a href="{% url 'profiles:edit' %}" class="card-link">Edit</a>
+</div>
+
+</div>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
