@@ -32,22 +32,23 @@
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
                         {% for pending_obj in pending_requests %}
-                                {{ pending_obj.title }}
+                                {% include "snippets/request_card.html"  with request_obj=pending_obj is_admin=is_admin%}
+                        <br />
                         {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="under-review" role="tabpanel" aria-labelledby="under-review-tab">
                         {% for under_review_obj in under_review_requests %}
-                                {{ under_review_obj.title }}
+                                {% include "snippets/request_card.html"  with request_obj=under_review_obj is_admin=is_admin%}
                         {% endfor %}
                         </div>
                 <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="approved-tab">
                         {% for approved_obj in approved_requests %}
-                                {{ approved_obj.title }}
+                                {% include "snippets/request_card.html"  with request_obj=approved_obj is_admin=is_admin%}
                         {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
                         {% for rejected_obj in rejected_requests %}
-                                {{ rejected_obj.title }}
+                                {% include "snippets/request_card.html"  with request_obj=rejected_obj is_admin=is_admin%}
                         {% endfor %}
                 </div>
 
@@ -55,25 +56,7 @@
 {% else %}
                 {% if request_obj %}
                 <h3 class="text-center">Layaway Request</h3>
-                        <div class="card text-center">
-                                <div class="card-header">
-                                {{ request_obj.reference_ID }}: {{ request_obj.status}}
-                                </div>
-                                <div class="card-body">
-                                <h5 class="card-title">{{ request_obj.url }}</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                <ul class="list-group list-group-flush mx-4">
-                                        <li class="list-group-item"><b>Price:</b> {{ request_obj.price }}</li>
-                                        <li class="list-group-item"><b>Amount Owed:</b> {{ request_obj.remaining_amount }}</li>
-                                        <li class="list-group-item"></li>
-                                </ul>
-                                <a href="{{ request_obj.get_absolute_url }}" class="btn btn-primary">View Details</a>
-                                <a href="#" class="btn btn-success">Make A Payment</a>
-                                </div>
-                                <div class="card-footer text-muted">
-                                        last updated 2 days ago
-                                </div>
-                        </div>
+                        {% include "snippets/request_card.html"  with request_obj=request_obj%}
                 {% else %}
                 <div class="row text-center">
                         <div class="col">

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views import View
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormView
-from .models import RequestForm, Request
+from .models import RequestForm, Request, UpdateRequestForm
 
 # Create your views here.
 
@@ -45,6 +45,30 @@ class RequestDetailsView(DetailView):
                 except:
                         raise Http404("hmmmm")
                 return instance
+
+
+class RequestUpdateView(View):
+        request_form_class = UpdateRequestForm
+        template_name = 'request/request_update.html'
+
+        def get(self, request, *args, **kwargs):
+                user = request.user
+                slug = self.kwargs.get('slug')
+                request_obj = Request.objects.get(slug=slug)
+
+                request_update_form = self.request_form_class(instance=request_obj)
+                return render(request, self.template_name, {
+                        'request_form': request_update_form
+                })
+        def post(self, request, *args, **kwargs):
+                user = request.user
+                slug=self.kwargs.get('slug')
+                request_obj = Request.objects.get(slug=slug)
+
+                request_form = self.request_form_class(request.POST, instance=request_obj)
+                if request_form.is_valid():
+                        request_form.save()
+                return redirect("dashboard:view")
 
 
 

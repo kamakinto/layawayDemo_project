@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.forms import ModelForm, Textarea, TextInput
+from django.forms import ModelForm, Textarea, TextInput, ChoiceField, NumberInput, CheckboxInput, Select, SelectDateWidget
 from django import forms
 from django.urls import reverse
 from layawayDemo.utils import unique_order_id_generator, unique_slug_generator
@@ -51,6 +51,25 @@ class RequestForm(ModelForm):
                         'url': TextInput(attrs={"class": "form-control"}),
                         'notes': Textarea(attrs={"cols":80, "rows":4, "class": "form-control"})
                 }
+
+class UpdateRequestForm(ModelForm):
+        """Form definition for UpdateRequest."""
+
+        class Meta:
+                model = Request
+                fields = ('status', 'title', 'notes', 'purchase_date',  'price', 'remaining_amount', 'payment_amount', 'downpayment_paid')
+                widgets = {
+                        'status': Select(attrs={"class": "form-control"}),
+                        'title': TextInput(attrs={"class": "form-control"}),
+                        'price': TextInput(attrs={"class": "form-control"}),
+                        'purchase_date': SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day"), attrs={"class": "form-control"}),
+                        'remaining_amount': NumberInput( attrs={"class": "form-control"}),
+                        'payment_amount': NumberInput(attrs={"class": "form-control"}),
+                        'downpayment_paid': CheckboxInput( attrs={"class": "form-control"}),
+                        'notes': Textarea(attrs={"cols":80, "rows":4, "class": "form-control"})
+
+                }
+
 
 
 

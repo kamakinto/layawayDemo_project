@@ -12,6 +12,10 @@ class DashboardView(View):
         admin_role = False
         # user = get currently logged in user
         def get(self, request, *args, **kwargs):
+                pending_requests = None
+                under_review_requests = None
+                approved_requests = None
+                rejected_requests = None
                 if request.user.is_authenticated:
                         user = request.user
                         try:
