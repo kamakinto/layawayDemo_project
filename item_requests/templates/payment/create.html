@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+        <div class="col">
+
+
+                        <div class="card mx-auto" style="width: 18rem;">
+                                        <div class="card-body">
+                                          <h5 class="card-title">How much do you want to pay?</h5>
+                                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                          <li class="list-group-item">Total amount:  {{request_obj.price}} </li>
+                                          <li class="list-group-item">Current Balance: {{ request_obj.remaining_amount }} </li>
+                                          <li class="list-group-item">
+                                                  <form method="POST">
+                                                          {% csrf_token %}
+                                                                $ <input id="add_payment" name="payment_amount">
+                                        </li>
+
+                                                                <button type="submit" class="btn btn-success"> Continue </button>
+                                          <a href="#" class="btn btn-default">Cancel</a>
+                                                  </form>
+
+                                        </ul>
+                                        <div class="card-body">
+
+                                        </div>
+                                      </div>
+
+
+        </div>
+</div>
+
+
+{% endblock content %}
+

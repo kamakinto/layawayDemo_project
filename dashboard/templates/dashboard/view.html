@@ -15,6 +15,28 @@
 
 
 {% if is_admin %}
+<div class="row">
+                <div class="col">
+                        <a href="{% url 'request:create' %}" class="btn btn-success btn-lg"> Create A Request</a>
+                </div>
+        </div>
+        <br />
+
+        <form action="" method="POST">
+                        <script
+                          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                          data-key="pk_test_1lfH5wc92bwjlZBrlgQ6P6vQ"
+                          data-amount="999"
+                          data-name="Haki layaway"
+                          data-description="Example charge"
+                          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                          data-locale="auto"
+                          data-currency="eur">
+                        </script>
+                      </form>
+        <hr />
+
+        <h3>Manage Requests</h3>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">Pending</a>
@@ -74,12 +96,12 @@
 
 
 
-      <h3 class="text-center">Purchases</h3>
+      <h3>Purchases</h3>
 
       {% if purchases %}
               Yes! we have bought things!
       {% else %}
-      <div class="row text-center">
+      <div class="row">
                 <div class="col">
                                <button type="button" class="btn btn-success btn-lg">Add to Cart</button>
                 </div>

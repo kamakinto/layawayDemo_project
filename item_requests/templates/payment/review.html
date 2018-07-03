@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+        <div class="col">
+
+
+                        <div class="card mx-auto" style="width: 18rem;">
+                                        <div class="card-body">
+                                          <h5 class="card-title">Review Your Payment Details</h5>
+                                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        </div>
+                                        <ul class="list-group list-group-flush">
+                                          <li class="list-group-item">Total amount:  {{request_obj.price}} </li>
+                                          <li class="list-group-item">Current Balance: {{ request_obj.remaining_amount }} </li>
+                                          <li class="list-group-item">Current Payment Amount: {{ request_obj.payment_amount }} </li>
+                                        </ul>
+                                        <div class="card-body">
+                                                        <form action="" method="POST">
+                                                                {% csrf_token %}
+                                                                        <script
+                                                                          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                                          data-key="pk_test_1lfH5wc92bwjlZBrlgQ6P6vQ"
+                                                                          data-amount="{{ stripe_amount }}"
+                                                                          data-name="Haki layaway"
+                                                                          data-description="Example charge"
+                                                                          data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                                                          data-locale="auto"
+                                                                          data-currency="eur">
+                                                                        </script>
+                                                                      </form>
+                                          <a href="#" class="btn btn-default">Cancel</a>
+                                        </div>
+                                      </div>
+
+
+        </div>
+</div>
+
+
+{% endblock content %}
+

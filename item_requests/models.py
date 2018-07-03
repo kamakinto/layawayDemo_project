@@ -67,9 +67,7 @@ class UpdateRequestForm(ModelForm):
                         'payment_amount': NumberInput(attrs={"class": "form-control"}),
                         'downpayment_paid': CheckboxInput( attrs={"class": "form-control"}),
                         'notes': Textarea(attrs={"cols":80, "rows":4, "class": "form-control"})
-
                 }
-
 
 
 

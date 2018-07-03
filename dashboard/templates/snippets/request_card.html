@@ -10,7 +10,7 @@
                         <b>Amount Owed:</b> {{ request_obj.remaining_amount }}</li>
                 </ul>
                 <a href="{{ request_obj.get_absolute_url }}" class="btn btn-primary">View Details</a>
-                <a href="#" class="btn btn-success">Make A Payment</a>
+                <a href="{% url 'request:add' slug=request_obj.slug %}" class="btn btn-success">Make A Payment</a>
 
                 {% if is_admin %}
                 <a href="{% url 'request:update' slug=request_obj.slug %}" class="btn btn-info">Update Request</a>
