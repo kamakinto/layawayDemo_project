@@ -36,21 +36,32 @@ class AddPaymentRequestView(View):
         def get(self, request, *args, **kwargs):
                 user = request.user
                 slug = self.kwargs.get('slug')
-                request_obj = Request.objects.get(slug=slug)
-                # request_update_form = self.request_form_class(instance=request_obj)
-                return render(request, self.template_name, {
-                        "request_obj": request_obj
-                })
+                #put a try block to get the right request object, if the user and the slug dont match, redirect the user to their dashboard
+                try:
+                        request_obj = Request.objects.get(user = user, slug=slug)
+                except Request.DoesNotExist:
+                        print("You are not the right user for this request")
+                        return redirect("dashboard:view")
+                else:
+                        #request_obj = Request.objects.get(user = user)
+                        # request_update_form = self.request_form_class(instance=request_obj)
+                        return render(request, self.template_name, {
+                                "request_obj": request_obj
+                        })
 
         def post(self, request, *args, **kwargs):
                 user = request.user
                 slug = self.kwargs.get('slug')
-                request_obj = Request.objects.get(slug=slug)
-                amount_to_pay = request.POST.get("payment_amount")
-                request_obj.payment_amount = amount_to_pay
-                request_obj.save()
-
-                return redirect("request:review", slug=slug) #change to redirect to the review.html page once it has been plugged in
+                try:
+                        request_obj = Request.objects.get(user = user, slug=slug)
+                        amount_to_pay = request.POST.get("payment_amount")
+                        request_obj.payment_amount = amount_to_pay
+                        request_obj.save()
+                except Request.DoesNotExist:
+                        print("You are not the right user for this request")
+                        return redirect("dashboard:view")
+                else:
+                        return redirect("request:review", slug=slug) #change to redirect to the review.html page once it has been plugged in
 
 class ReviewPaymentView(View):
         template_name = "payment/review.html"
@@ -58,22 +69,25 @@ class ReviewPaymentView(View):
         def get(self, request, *args, **kwargs):
                 user = request.user
                 slug = self.kwargs.get('slug')
-                request_obj = Request.objects.get(slug=slug)
-                stripe_amount = request_obj.payment_amount * 100
-                print(request_obj.payment_amount)
-
-                return render(request, self.template_name, {
-                        "request_obj": request_obj,
-                        "stripe_amount": stripe_amount
-                })
+                try:
+                        request_obj = Request.objects.get(user = user, slug=slug)
+                        stripe_amount = request_obj.payment_amount * 100
+                except Request.DoesNotExist:
+                        print("You are not the right user for this request")
+                        return redirect("dashboard:view")
+                else:
+                        return render(request, self.template_name, {
+                                "request_obj": request_obj,
+                                "stripe_amount": stripe_amount
+                        })
 
         def post(self, request, *args, **kwargs):
                 user = request.user
                 print(request.POST)
                 slug = self.kwargs.get('slug')
-                request_obj = Request.objects.get(slug=slug)
-                payment_amount = request_obj.payment_amount
                 try:
+                        request_obj = Request.objects.get(slug=slug, user = user)
+                        payment_amount = request_obj.payment_amount
                         stripe.api_key = settings.STRIPE_SECRET_KEY
                         token = request.POST.get('stripeToken')
                         user_email = request.POST.get('stripeEmail')
@@ -90,6 +104,9 @@ class ReviewPaymentView(View):
                         )
                 except stripe.error.CardError as e:
                         return False, e
+                except Request.DoesNotExist:
+                        print("You are not the right user for this request")
+                        return redirect("dashboard:view")
                 else:
                         #Payment was successful, handle any clean-up and processing
                         request_obj.payment_amount = 0.00
@@ -105,6 +122,7 @@ class RequestDetailsView(DetailView):
 
         def get_object(self, *args, **kwargs):
                 request = self.request
+                user = request.user
                 slug = self.kwargs.get('slug')
                 try:
                         instance = Request.objects.get(slug=slug)

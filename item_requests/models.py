@@ -75,13 +75,8 @@ class UpdateRequestForm(ModelForm):
 def pre_save_request_receiver(sender, instance, *args, **kwargs):
         if not instance.slug:
                 instance.slug = unique_slug_generator(instance)
-
-        #get current user
-        #Create reference ID
-        #create Slug
-        #save current user object to the user field
-
-        pass
+        if not instance.reference_ID:
+                instance.reference_ID = unique_order_id_generator(instance)
 
 
 
