@@ -112,6 +112,7 @@ class ReviewPaymentView(View):
                         request_obj.payment_amount = 0.00
                         request_obj.remaining_amount -= payment_amount
                         request_obj.save()
+                        #TODO:: Send a confirmation email to the user, and a notification email to the admins
                         return redirect("dashboard:view")
 
 
@@ -157,6 +158,7 @@ class RequestUpdateView(View):
                 request_form = self.request_form_class(request.POST, instance=request_obj)
                 if request_form.is_valid():
                         request_form.save()
+                        #send an email to the Admins and User making the request of the updated status
                 return redirect("dashboard:view")
 
 
