@@ -28,16 +28,34 @@
         <h3>Manage Requests</h3>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">Pending</a>
+                  <a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">Pending
+                  {% if pending_requests.count != 0 %}
+                  <span class="badge badge-pill badge-secondary">{{ pending_requests.count }}</span>
+                  {% endif %}
+                           </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="under-review-tab" data-toggle="tab" href="#under-review" role="tab" aria-controls="under-review" aria-selected="false">Under Review</a>
+                  <a class="nav-link" id="under-review-tab" data-toggle="tab" href="#under-review" role="tab" aria-controls="under-review" aria-selected="false">Under Review
+                  {% if under_review_requests.count != 0  %}
+                  <span class="badge badge-pill badge-secondary">{{ under_review_requests.count }}</span>
+                  {% endif %}
+                           </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="approved-tab" data-toggle="tab" href="#approved" role="tab" aria-controls="approved" aria-selected="false">Approved</a>
+                  <a class="nav-link" id="approved-tab" data-toggle="tab" href="#approved" role="tab" aria-controls="approved" aria-selected="false">Approved
+
+                          {% if approved_requests.count != 0 %}
+                          <span class="badge badge-pill badge-secondary">{{ approved_requests.count }}</span>
+                          {% endif %}
+                                 </a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" id="rejected-tab" data-toggle="tab" href="#rejected" role="tab" aria-controls="rejected" aria-selected="false">Rejected</a>
+                <a class="nav-link" id="rejected-tab" data-toggle="tab" href="#rejected" role="tab" aria-controls="rejected" aria-selected="false">Rejected
+
+                        {% if rejected_requests.count != 0  %}
+                               <span class="badge badge-pill badge-secondary">{{ rejected_requests }}</span>
+                        {% endif %}
+                                 </a>
                 </li>
               </ul>
               <div class="tab-content" id="myTabContent">

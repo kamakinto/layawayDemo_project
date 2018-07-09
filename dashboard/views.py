@@ -27,6 +27,7 @@ class DashboardView(View):
                                         under_review_requests = self.user_request_list.filter(status="under_review")
                                         approved_requests = self.user_request_list.filter(status="approved")
                                         rejected_requests = self.user_request_list.filter(status="rejected")
+
                         except Request.DoesNotExist:
                                 print("This user has no item requests")
                         except Request.MultipleObjectsReturned:
@@ -44,7 +45,8 @@ class DashboardView(View):
                         "pending_requests": pending_requests,
                         "under_review_requests": under_review_requests,
                         "approved_requests": approved_requests,
-                        "rejected_requests": rejected_requests})
+                        "rejected_requests": rejected_requests,
+                        })
         def isAdmin(self, user):
                 current_user_profile = Profile.objects.get(user=user)
                 is_admin = True if current_user_profile.role == "admin" else  False

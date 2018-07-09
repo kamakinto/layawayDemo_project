@@ -6,6 +6,7 @@ from django.views.generic.edit import FormView
 from .models import RequestForm, Request, UpdateRequestForm
 import stripe
 from django.conf import settings
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -157,7 +158,20 @@ class RequestUpdateView(View):
 
                 request_form = self.request_form_class(request.POST, instance=request_obj)
                 if request_form.is_valid():
-                        request_form.save()
+                        if 'status' in request_form.changed_data:
+                               # old_status = request_obj.status
+                                # new_status = request.POST.get('status')
+                                # send_mail(
+                                #         'Testing for status changes',
+                                #         'The status of your request has been updated to {0}. Please log-in to view your account'.format(new_status),
+                                #         'haki.projects@gmail.com',
+                                #         ['everettlrobinson@gmail.com'],
+                                #         fail_silently=False,
+                                # )
+
+
+                                request_form.save()
+
                         #send an email to the Admins and User making the request of the updated status
                 return redirect("dashboard:view")
 
