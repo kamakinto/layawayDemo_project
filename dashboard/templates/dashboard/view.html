@@ -63,21 +63,28 @@
                         {% for pending_obj in pending_requests %}
                                 {% include "snippets/request_card.html"  with request_obj=pending_obj is_admin=is_admin%}
                         <br />
+                        <br />
                         {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="under-review" role="tabpanel" aria-labelledby="under-review-tab">
                         {% for under_review_obj in under_review_requests %}
                                 {% include "snippets/request_card.html"  with request_obj=under_review_obj is_admin=is_admin%}
+                                <br />
+                                 <br />
                         {% endfor %}
                         </div>
                 <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="approved-tab">
                         {% for approved_obj in approved_requests %}
                                 {% include "snippets/request_card.html"  with request_obj=approved_obj is_admin=is_admin%}
+                                <br />
+                                 <br />
                         {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="rejected" role="tabpanel" aria-labelledby="rejected-tab">
                         {% for rejected_obj in rejected_requests %}
                                 {% include "snippets/request_card.html"  with request_obj=rejected_obj is_admin=is_admin%}
+                                <br />
+                                 <br />
                         {% endfor %}
                 </div>
 
