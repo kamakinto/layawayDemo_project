@@ -7,6 +7,9 @@ from django import forms
 from django.urls import reverse
 from layawayDemo.utils import unique_order_id_generator, unique_slug_generator
 from django.db.models.signals import pre_save
+from decimal import Decimal
+
+
 
 
 REQUEST_STATUS = (
@@ -37,6 +40,10 @@ class Request(models.Model):
 
         def get_absolute_url(self):
                 return reverse("request:detail", kwargs={"slug": self.slug})
+        @property
+        def downpayment_amount(self):
+                downpayment = round(self.price * Decimal(.35), 2)
+                return downpayment
 
 
 class RequestForm(ModelForm):
@@ -77,6 +84,8 @@ def pre_save_request_receiver(sender, instance, *args, **kwargs):
                 instance.slug = unique_slug_generator(instance)
         if not instance.reference_ID:
                 instance.reference_ID = unique_order_id_generator(instance)
+
+
 
 
 

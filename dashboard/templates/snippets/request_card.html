@@ -13,7 +13,7 @@
                         <ul class="list-group list-group-flush mx-4">
                                         <li class="list-group-item"><b>Total Price:</b> {{ request_obj.price }} <br />
                                                 {% if request_obj.downpayment_paid is False %}
-                                                         <b>Downpayment Amount:</b> 30% of the total price of the item
+                                                         <b>Downpayment Amount:</b>{{ request_obj.downpayment_amount }}
                                                 {% else %}
                                                        <b> Amount Owed:</b> {{ request_obj.remaining_amount }}
                                                 {% endif %}

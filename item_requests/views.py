@@ -4,6 +4,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormView
 from .models import RequestForm, Request, UpdateRequestForm
+from decimal import Decimal
 import stripe
 from django.conf import settings
 from django.core.mail import send_mail
@@ -158,6 +159,10 @@ class RequestUpdateView(View):
 
                 request_form = self.request_form_class(request.POST, instance=request_obj)
                 if request_form.is_valid():
+                        downpayment =  request_form.cleaned_data['price'] * Decimal(0.35)
+                        print(request_obj.downpayment_amount)
+                        #request_form.cleaned_data['downpayment_amount'] = downpayment
+                     #   request_form.cleaned_data['downpayment_amount'] =
                         if 'status' in request_form.changed_data:
                                # old_status = request_obj.status
                                 # new_status = request.POST.get('status')
