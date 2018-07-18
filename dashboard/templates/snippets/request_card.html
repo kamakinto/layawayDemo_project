@@ -5,7 +5,7 @@
                 </div>
                 <div class="card-body">
                 <h5 class="card-title">{{ request_obj.url }}</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <p class="card-text"> {{ request_obj.notes }}</p>
 
 
 
@@ -13,7 +13,7 @@
                         <ul class="list-group list-group-flush mx-4">
                                         <li class="list-group-item"><b>Total Price:</b> {{ request_obj.price }} <br />
                                                 {% if request_obj.downpayment_paid is False %}
-                                                         <b>Downpayment Amount:</b>{{ request_obj.downpayment_amount }}
+                                                         <b>Down payment Amount:</b>{{ request_obj.down_payment_amount }}
                                                 {% else %}
                                                        <b> Amount Owed:</b> {{ request_obj.remaining_amount }}
                                                 {% endif %}
@@ -33,8 +33,11 @@
                 <a href="{{ request_obj.get_absolute_url }}" class="btn btn-primary">View Details</a>
 
 
-                {% if request_obj.status == "approved" %}
+                {% if request_obj.status == "approved"   and  request_obj.downpayment_paid %}
                         <a href="{% url 'request:add' slug=request_obj.slug %}" class="btn btn-success">Make A Payment</a>
+
+                {% else %}
+                <a href="{% url 'request:review' slug=request_obj.slug %}" class="btn btn-success">Make A Payment</a>
                 {% endif %}
 
 
@@ -44,6 +47,6 @@
 
                 </div>
                 <div class="card-footer text-muted">
-                        last updated 2 days ago
+                        last updated {{ request_obj.updated }}
                 </div>
         </div>
