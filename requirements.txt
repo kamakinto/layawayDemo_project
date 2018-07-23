@@ -21,6 +21,7 @@ boto==2.48.0
 Bottleneck==1.2.1
 celery==4.1.0
 certifi==2017.7.27.1
+cfe==0.0.15
 cffi==1.10.0
 chardet==3.0.4
 click==6.7
@@ -39,6 +40,7 @@ dask==0.15.3
 datashape==0.5.4
 decorator==4.1.2
 distributed==1.19.1
+dj-database-url==0.5.0
 Django==2.0.2
 docutils==0.14
 entrypoints==0.2.3
@@ -51,6 +53,7 @@ gevent==1.2.2
 glob2==0.5
 gmpy2==2.0.8
 greenlet==0.4.12
+gunicorn==19.9.0
 h5py==2.7.0
 heapdict==1.0.0
 html5lib==0.999999999
