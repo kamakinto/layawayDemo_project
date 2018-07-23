@@ -41,9 +41,9 @@ class Request(models.Model):
         def get_absolute_url(self):
                 return reverse("request:detail", kwargs={"slug": self.slug})
         @property
-        def down_payment_amount(self):
-                downPayment = round(self.price * Decimal(.35), 2)
-                return downPayment
+        def downpayment_amount(self):
+                downpayment = round(self.price * Decimal(.35), 2)
+                return downpayment
 
 
 class RequestForm(ModelForm):
