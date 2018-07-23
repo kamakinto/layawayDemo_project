@@ -72,14 +72,21 @@ class ReviewPaymentView(View):
                 slug = self.kwargs.get('slug')
                 try:
                         request_obj = Request.objects.get(user = user, slug=slug)
-                        stripe_amount = request_obj.payment_amount * 100
+                        if request_obj.downpayment_paid:
+                                stripe_amount = request_obj.payment_amount *100
+                                current_payment_amount = request_obj.payment_amount
+                        else:
+                                stripe_amount = request_obj.down_payment_amount * 100
+                                current_payment_amount = request_obj.down_payment_amount
+
                 except Request.DoesNotExist:
                         print("You are not the right user for this request")
                         return redirect("dashboard:view")
                 else:
                         return render(request, self.template_name, {
                                 "request_obj": request_obj,
-                                "stripe_amount": stripe_amount
+                                "stripe_amount": stripe_amount,
+                                "current_payment_amount": current_payment_amount
                         })
 
         def post(self, request, *args, **kwargs):

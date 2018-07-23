@@ -26,7 +26,7 @@ def  login_page(request):
                         if is_safe_url(redirect_path, request.get_host()):
                                 return redirect(redirect_path)
                         else:
-                                return redirect('/')
+                                return redirect('/dashboard/')
                 else:
                         print("Error") #return an invalid login error message
         return render(request, "login.html", context)

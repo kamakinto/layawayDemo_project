@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from decimal import Decimal
 from django.forms import ModelForm, Textarea, TextInput, ChoiceField, NumberInput, CheckboxInput, Select, SelectDateWidget
 from django import forms
 from django.urls import reverse
@@ -37,6 +38,11 @@ class Request(models.Model):
 
         def get_absolute_url(self):
                 return reverse("request:detail", kwargs={"slug": self.slug})
+
+        @property
+        def down_payment_amount(self):
+                downPayment = round(self.price * Decimal(.35), 2)
+                return downPayment
 
 
 class RequestForm(ModelForm):
