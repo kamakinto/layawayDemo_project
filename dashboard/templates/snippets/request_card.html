@@ -1,45 +1,16 @@
 <div class="card text-center">
                 <div class="card-header">
-               <b>Reference Number: </b> {{ request_obj.reference_ID }}<br />
-              <b>Status:  </b>  {{ request_obj.status}}
+                {{ request_obj.reference_ID }}: {{ request_obj.status}}
                 </div>
                 <div class="card-body">
                 <h5 class="card-title">{{ request_obj.url }}</h5>
-                <p class="card-text"> {{ request_obj.notes }}</p>
-
-
-
-                {% if request_obj.status == "approved" %}
-                        <ul class="list-group list-group-flush mx-4">
-                                        <li class="list-group-item"><b>Total Price:</b> {{ request_obj.price }} <br />
-                                                {% if request_obj.downpayment_paid is False %}
-                                                         <b>Down payment Amount:</b>{{ request_obj.down_payment_amount }}
-                                                {% else %}
-                                                       <b> Amount Owed:</b> {{ request_obj.remaining_amount }}
-                                                {% endif %}
-
-                                        </li>
-
-                        </ul>
-                {% else %}
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                 <ul class="list-group list-group-flush mx-4">
-                                <li class="list-group-item"><b>Total Price:</b> <i>{{ request_obj.status }} </i><br />
-                                <b>Amount Owed:</b> <i>{{ request_obj.status }}</i></li>
+                        <li class="list-group-item"><b>Total Price:</b> {{ request_obj.price }} <br />
+                        <b>Amount Owed:</b> {{ request_obj.remaining_amount }}</li>
                 </ul>
-                {% endif %}
-
-
-
                 <a href="{{ request_obj.get_absolute_url }}" class="btn btn-primary">View Details</a>
-
-
-                {% if request_obj.status == "approved"   and  request_obj.downpayment_paid %}
-                        <a href="{% url 'request:add' slug=request_obj.slug %}" class="btn btn-success">Make A Payment</a>
-
-                {% else %}
-                <a href="{% url 'request:review' slug=request_obj.slug %}" class="btn btn-success">Make A Payment</a>
-                {% endif %}
-
+                <a href="{% url 'request:add' slug=request_obj.slug %}" class="btn btn-success">Make A Payment</a>
 
                 {% if is_admin %}
                 <a href="{% url 'request:update' slug=request_obj.slug %}" class="btn btn-info">Update Request</a>
@@ -47,6 +18,6 @@
 
                 </div>
                 <div class="card-footer text-muted">
-                        last updated {{ request_obj.updated }}
+                        last updated 2 days ago
                 </div>
         </div>

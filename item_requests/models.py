@@ -7,9 +7,6 @@ from django import forms
 from django.urls import reverse
 from layawayDemo.utils import unique_order_id_generator, unique_slug_generator
 from django.db.models.signals import pre_save
-from decimal import Decimal
-
-
 
 
 REQUEST_STATUS = (
@@ -20,7 +17,7 @@ REQUEST_STATUS = (
 )
 class Request(models.Model):
         user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-        reference_ID = models.CharField(max_length=250, blank=True, null=True)
+        reference_ID = models.CharField(max_length=250, blank=True, default='xxx')
         url = models.CharField(max_length=250, blank=True, null=True)
         status = models.CharField(max_length=50, choices=REQUEST_STATUS, default='pending')
         slug = models.SlugField(blank=True, unique=True)
@@ -40,10 +37,6 @@ class Request(models.Model):
 
         def get_absolute_url(self):
                 return reverse("request:detail", kwargs={"slug": self.slug})
-        @property
-        def down_payment_amount(self):
-                downPayment = round(self.price * Decimal(.35), 2)
-                return downPayment
 
 
 class RequestForm(ModelForm):
@@ -64,7 +57,7 @@ class UpdateRequestForm(ModelForm):
 
         class Meta:
                 model = Request
-                fields = ('status', 'title', 'notes', 'purchase_date',  'price', 'remaining_amount', 'downpayment_paid')
+                fields = ('status', 'title', 'notes', 'purchase_date',  'price', 'remaining_amount', 'payment_amount', 'downpayment_paid')
                 widgets = {
                         'status': Select(attrs={"class": "form-control"}),
                         'title': TextInput(attrs={"class": "form-control"}),
@@ -84,8 +77,6 @@ def pre_save_request_receiver(sender, instance, *args, **kwargs):
                 instance.slug = unique_slug_generator(instance)
         if not instance.reference_ID:
                 instance.reference_ID = unique_order_id_generator(instance)
-
-
 
 
 

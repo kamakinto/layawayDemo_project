@@ -2,48 +2,12 @@
 
 
 {% block content %}
-<div class="card text-center">
-                <div class="card-header">
-               <b>Reference Number: </b> {{ object.reference_ID }}<br />
-              <b>Status:  </b>  {{ object.status}}
-                </div>
-                <div class="card-body">
-                <h5 class="card-title">{{ object.url }}</h5>
-                <p class="card-text"> {{ object.notes }}</p>
-
-
-
-                {% if object.status == "approved" %}
-                        <ul class="list-group list-group-flush mx-4">
-                                        <li class="list-group-item"><b>Total Price:</b> {{ object.price }} <br />
-                                                {% if object.downpayment_paid is False %}
-                                                         <b>Down payment Amount:</b>{{ object.down_payment_amount }}
-                                                {% else %}
-                                                       <b> Amount Owed:</b> {{ object.remaining_amount }}
-                                                {% endif %}
-
-                                        </li>
-
-                        </ul>
-                {% else %}
-                <ul class="list-group list-group-flush mx-4">
-                                <li class="list-group-item"><b>Total Price:</b> <i>{{ object.status }} </i><br />
-                                <b>Amount Owed:</b> <i>{{ object.status }}</i></li>
-                </ul>
-                {% endif %}
-
-
-
-
-                {% if is_admin %}
-                <a href="{% url 'request:update' slug=object.slug %}" class="btn btn-info">Update Request</a>
-                {% endif %}
-
-                </div>
-                <div class="card-footer text-muted">
-                        last updated {{ object.updated }}
-                </div>
+<div class="row">
+        <div class="col">
+                        {{ object.title }}
+                        {{ object.status }}
         </div>
+</div>
 <h3> Request History</h3>
 
 
