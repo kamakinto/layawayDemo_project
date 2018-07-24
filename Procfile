@@ -1,1 +1,1 @@
-web: gunicorn layawayDemo.wsgi.application
+web: gunicorn layawayDemo.wsgi
