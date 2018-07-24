@@ -28,7 +28,6 @@ clyent
 colorama
 conda==4.3.16
 conda-build
-conda-verify
 contextlib2
 cryptography
 cycler
