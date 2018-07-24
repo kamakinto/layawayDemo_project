@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+ <title>Home template</title>
+  </head>
+  <body>
+    <h1>Hello, world from templates!</h1>
+
+
+
+    <div class= "container">
+
+
+
+{% if request.user.is_authenticated %}
+  <div class="row">
+        <div class="col"></div>
+     </div>
+{% endif %}
+
+
+    </div>
+
+
+{% endblock content %}
+
+
