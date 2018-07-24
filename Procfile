@@ -1,1 +1,1 @@
-web: gunicorn layawayDemo.wsgi
+web: gunicorn layawayDemo.layawayDemo.wsgi:application --log-file -
