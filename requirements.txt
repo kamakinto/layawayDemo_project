@@ -1,0 +1,11 @@
+Django==2.0.2
+dj-database-url==0.2.1
+psycopg2==2.7.1
+Pillow==4.2.1
+stripe==1.84.0
+path.py==10.3.1
+gunicorn==19.9.0
+boto3
+django-storages
+boto
+
