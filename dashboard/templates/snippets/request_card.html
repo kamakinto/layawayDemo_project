@@ -4,6 +4,7 @@
                 </div>
                 <div class="card-body">
                 <h5 class="card-title">{{ request_obj.url }}</h5>
+<<<<<<< HEAD
                 <p class="card-text">{{ request_obj.notes }}</p>
 
 
@@ -19,6 +20,20 @@
                                  <b> Amount Owed:</b> {{ request_obj.remaining_amount }} <br />
                                  <b>Amount Owed:</b> {{ request_obj.remaining_amount }}</li>
                         {% endif %}
+=======
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+
+
+
+                {% if request_obj.status == "approved" %}
+                        <ul class="list-group list-group-flush mx-4">
+                                        <li class="list-group-item"><b>Total Price:</b> {{ request_obj.price }} <br />
+                                                {% if request_obj.downpayment_paid is False %}
+                                                         <b>Downpayment Amount:</b>{{ request_obj.downpayment_amount }}
+                                                {% else %}
+                                                       <b> Amount Owed:</b> {{ request_obj.remaining_amount }}
+                                                {% endif %}
+>>>>>>> origin/master
 
 
                 </ul>
@@ -29,10 +44,16 @@
                 <a href="{{ request_obj.get_absolute_url }}" class="btn btn-primary">View Details</a>
 
 
+<<<<<<< HEAD
                 {% if request_obj.status == "approved" and request_obj.downpayment_paid  %}
                         <a href="{% url 'request:add' slug=request_obj.slug %}" class="btn btn-success">Make A Payment</a>
 
                 {% else %}
+=======
+                {% if request_obj.status == "approved" %}
+                        <a href="{% url 'request:add' slug=request_obj.slug %}" class="btn btn-success">Make A Payment</a>
+                {% endif %}
+>>>>>>> origin/master
 
                         {% if request_obj.status == "approved" %}
                                  <a href="{% url 'request:review' slug=request_obj.slug %}" class="btn btn-success">Make A Payment</a>
@@ -46,6 +67,6 @@
 
                 </div>
                 <div class="card-footer text-muted">
-                        last updated {{ request_obj.updated }}
+                        last updated 2 days ago
                 </div>
         </div>

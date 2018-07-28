@@ -72,6 +72,7 @@ class ReviewPaymentView(View):
                 slug = self.kwargs.get('slug')
                 try:
                         request_obj = Request.objects.get(user = user, slug=slug)
+<<<<<<< HEAD
                         if request_obj.downpayment_paid:
                                 stripe_amount = request_obj.payment_amount *100
                                 current_payment_amount = request_obj.payment_amount
@@ -79,14 +80,16 @@ class ReviewPaymentView(View):
                                 stripe_amount = request_obj.down_payment_amount * 100
                                 current_payment_amount = request_obj.down_payment_amount
 
+=======
+                        stripe_amount = request_obj.payment_amount * 100
+>>>>>>> origin/master
                 except Request.DoesNotExist:
                         print("You are not the right user for this request")
                         return redirect("dashboard:view")
                 else:
                         return render(request, self.template_name, {
                                 "request_obj": request_obj,
-                                "stripe_amount": stripe_amount,
-                                "current_payment_amount": current_payment_amount
+                                "stripe_amount": stripe_amount
                         })
 
         def post(self, request, *args, **kwargs):
@@ -165,6 +168,10 @@ class RequestUpdateView(View):
 
                 request_form = self.request_form_class(request.POST, instance=request_obj)
                 if request_form.is_valid():
+                        downpayment =  request_form.cleaned_data['price'] * Decimal(0.35)
+                        print(request_obj.downpayment_amount)
+                        #request_form.cleaned_data['downpayment_amount'] = downpayment
+                     #   request_form.cleaned_data['downpayment_amount'] =
                         if 'status' in request_form.changed_data:
                                # old_status = request_obj.status
                                 # new_status = request.POST.get('status')
