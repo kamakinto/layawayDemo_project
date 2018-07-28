@@ -25,7 +25,7 @@ SECRET_KEY = 'e(3wpn!ez%*b7)16_b^21l8!**)%e3vcx)4eouye9h=!w1@jc8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.herokuapp.com']
+ALLOWED_HOSTS = ['.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'item_requests',
     'dashboard',
     'cart',
-    'stripe'
+    'stripe',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -139,6 +140,8 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
 
+from layawayDemo.aws.conf import *
+
 # Stripe Settings
 STRIPE_PUBLISHABLE_KEY = 'pk_test_1lfH5wc92bwjlZBrlgQ6P6vQ'
 STRIPE_SECRET_KEY = 'sk_test_EDpva7O0FojwViAGXMvnGPvl'
@@ -163,3 +166,8 @@ CSRF_COOKIE_SECURE              = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS  = True
 SECURE_HSTS_SECONDS             = 1000000
 SECURE_FRAME_DENY               = True
+
+AWS_GROUP_NAME = "kamakinto-layaway-group"
+AWS_USERNAME = "kamakinto-layaway-user"
+AWS_ACCESS_KEY_ID = "AKIAIPQWGWUMY6SQSXZQ"
+AWS_SECRET_ACCESS_KEY = "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"

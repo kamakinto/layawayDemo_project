@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -133,6 +133,8 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
 
+from layawayDemo.aws.conf import *
+
 # Stripe Settings
 STRIPE_PUBLISHABLE_KEY = 'pk_test_1lfH5wc92bwjlZBrlgQ6P6vQ'
 STRIPE_SECRET_KEY = 'sk_test_EDpva7O0FojwViAGXMvnGPvl'
@@ -146,7 +148,6 @@ EMAIL_HOST_PASSWORD='H!tokiru123' #add it later
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
 
 #LetsEncrypt SSL (only for Production)
 CORS_REPLACE_HTTPS_REFERER      = False
