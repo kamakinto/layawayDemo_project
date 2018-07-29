@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'e(3wpn!ez%*b7)16_b^21l8!**)%e3vcx)4eouye9h=!w1@jc8'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -143,15 +143,15 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
 from layawayDemo.aws.conf import *
 
 # Stripe Settings
-STRIPE_PUBLISHABLE_KEY = 'pk_test_1lfH5wc92bwjlZBrlgQ6P6vQ'
-STRIPE_SECRET_KEY = 'sk_test_EDpva7O0FojwViAGXMvnGPvl'
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', 'pk_test_1lfH5wc92bwjlZBrlgQ6P6vQ')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', 'sk_test_EDpva7O0FojwViAGXMvnGPvl')
 
 # EMAIL SETTINGS
 
 #Gmail
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER='haki.projects@gmail.com'
-EMAIL_HOST_PASSWORD='H!tokiru123' #add it later
+EMAIL_HOST_USER= os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD= os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
@@ -169,5 +169,3 @@ SECURE_FRAME_DENY               = True
 
 AWS_GROUP_NAME = "kamakinto-layaway-group"
 AWS_USERNAME = "kamakinto-layaway-user"
-AWS_ACCESS_KEY_ID = "AKIAIPQWGWUMY6SQSXZQ"
-AWS_SECRET_ACCESS_KEY = "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"

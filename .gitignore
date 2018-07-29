@@ -1,5 +1,6 @@
 .DS_STORE
 layawayDemo/settings/local.py
+layawayDemo/settings/base.py
 
 # Virtualenv related
 bin/
